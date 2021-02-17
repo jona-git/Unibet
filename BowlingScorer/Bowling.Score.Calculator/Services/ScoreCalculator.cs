@@ -1,33 +1,50 @@
 ﻿using Bowling.Score.Calculator.Model;
-using Microsoft.Extensions.Logging;
+using Bowling.Score.Calculator.Validation;
+using System.Linq;
 
 namespace Bowling.Score.Calculator.Services
 {
     public class ScoreCalculator : IScoreCalculator
     {
-
-        private readonly ILogger<ScoreCalculator> _logger;
-        public ScoreCalculator(ILogger<ScoreCalculator> logger)
-        {
-            _logger = logger;
+        
+        private readonly IGameValidator _gameValidator;
+        public ScoreCalculator(IGameValidator gameValidator)
+        {       
+            _gameValidator = gameValidator;
         }
 
 
         public GameScore Calculate(int[] scores)
         {
-            var result = new GameScore { FrameCompleted = false, Score = 0 };
-            try
-            {            
-                //TODO: do logic 
-                                
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError($"Unable to calculate game score for {scores}. Error encountered: {ex}");
-                
-            }
+                    
+
+            _gameValidator.ValidateScores(scores);
+
+            if (IsPerfectScore(scores)) return new GameScore { FrameCompleted = true, Score = 300 };
+            if (IsGutterBallGame(scores)) return new GameScore { FrameCompleted = true, Score = 0 };
+
+            var result = new GameScore() { FrameCompleted = true, Score = 1 };
+
+            //TODO: Open Frame logic
+            //TODO: Strike logic
+            //TODO: Spare logic
 
             return result;
         }
+
+        private bool IsPerfectScore(int[] scores)
+        {            
+            return scores.Length == 12 && !scores.Any(s => s != 10);
+        }
+
+        private bool IsGutterBallGame(int[] scores)
+        {
+            return scores.Length == 10 && !scores.Any(s => s != 0);
+        }
+             
+      
+
+
+
     }
 }

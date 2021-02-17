@@ -1,3 +1,4 @@
+using Bowling.Score.Calculator.Infrastructure.Filters;
 using Bowling.Score.Calculator.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Bowling.API
+namespace Bowling.Score.Calculator
 {
     public class Startup
     {
@@ -19,7 +20,11 @@ namespace Bowling.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+           {
+               options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+           });
+
             services.AddScoped<IScoreCalculator, ScoreCalculator>();
         }
 

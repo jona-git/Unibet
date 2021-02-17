@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Bowling.API": {
+    "Bowling.Score.Calculator": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "scorer",
