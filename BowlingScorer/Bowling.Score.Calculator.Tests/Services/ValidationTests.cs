@@ -1,10 +1,6 @@
 ﻿using Bowling.Score.Calculator.Infrastructure.Exceptions;
-using Bowling.Score.Calculator.Services;
 using Bowling.Score.Calculator.Validation;
-using Microsoft.Extensions.Logging;
-using Moq;
 using NUnit.Framework;
-using System;
 
 namespace Bowling.Score.Calculator.Tests
 {
@@ -20,13 +16,13 @@ namespace Bowling.Score.Calculator.Tests
         [Test]
         public void ValidGameScore()
         {
-            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameScoresOngoingGame()));            
+            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameWholeScoreOngoingGame.TestScores));            
         }
 
         [Test]
         public void ValidAndCompleteGameScore()
         {
-            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameScoresGameComplete()));
+            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameScoresGameComplete.TestScores));
           
         }
 
@@ -38,6 +34,12 @@ namespace Bowling.Score.Calculator.Tests
 
         [Test]
         public void InvalidScoreValueGreaterThan10()
+        {
+            Assert.Throws<ScorerException>(() => gameValidator.ValidateScores(ScoreTestHelper.InvalidOpenFrameScoreGreaterThan10()));
+        }
+
+        [Test]
+        public void InvalidScoresOverMaxThrow()
         {
             Assert.Throws<ScorerException>(() => gameValidator.ValidateScores(ScoreTestHelper.InvalidOpenFrameScoreGreaterThan10()));
         }

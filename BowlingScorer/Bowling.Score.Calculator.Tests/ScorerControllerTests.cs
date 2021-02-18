@@ -4,7 +4,6 @@ using Bowling.Score.Calculator.Model;
 using Bowling.Score.Calculator.Services;
 using Bowling.Score.Calculator.Validation;
 using NUnit.Framework;
-using System.Net.Http;
 
 namespace Bowling.Score.Calculator.Tests
 {
@@ -17,8 +16,8 @@ namespace Bowling.Score.Calculator.Tests
         public ScorerControllerTests()
         {
             gameValidator = new GameValidator(); //used actual instance for this since this is lightweight, otherwise will mock dependencies
-
             scoreCalculator = new ScoreCalculator(gameValidator);
+
             scorerController = new ScorerController(scoreCalculator);
         }
 
@@ -26,20 +25,20 @@ namespace Bowling.Score.Calculator.Tests
         [Test]
         public void CalculatePerfectScoreTest()
         {            
-            var result = scorerController.Post(ScoreTestHelper.PerfectScore());
+            var result = scorerController.Post(ScoreTestHelper.PerfectScore.TestScores);
             Assert.AreEqual(result.GetType(), typeof(GameScore));
             Assert.IsTrue(result.FrameCompleted);
-            Assert.AreEqual(result.Score, 300);
+            Assert.AreEqual(result.Score, ScoreTestHelper.PerfectScore.ExpectedTotalScore);
         }
 
 
         [Test]
         public void CalculateGutterBallGameScoreTest()
         {
-            var result = scorerController.Post(ScoreTestHelper.GutterBallScores());
+            var result = scorerController.Post(ScoreTestHelper.GutterBallScores.TestScores);
             Assert.AreEqual(result.GetType(), typeof(GameScore));
             Assert.IsTrue(result.FrameCompleted);
-            Assert.AreEqual(result.Score, 0);
+            Assert.AreEqual(result.Score, ScoreTestHelper.GutterBallScores.ExpectedTotalScore);
 
         }
 
