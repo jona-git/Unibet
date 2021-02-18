@@ -25,6 +25,12 @@ namespace Bowling.Score.Calculator
            {
                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
            });
+            services.AddSwaggerDocument( config =>
+            {
+                config.PostProcess = doc => {
+                    doc.Info.Title = "Bowling Score Calculator API";
+                };
+            });
 
             services.AddScoped<IGameValidator, GameValidator>();
             services.AddScoped<IScoreCalculator, ScoreCalculator>();
@@ -41,6 +47,8 @@ namespace Bowling.Score.Calculator
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseAuthorization();
 
