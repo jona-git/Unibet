@@ -11,8 +11,8 @@ namespace Bowling.Score.Calculator.Tests.Services
         [Test]
         public void StrikeFrameTest()
         {
-            var frame = new Frame() { FirstBall = 10 };
-            Assert.AreEqual(10, frame.FirstBall);
+            var frame = new Frame() { FirstBall = 10 };         
+            Assert.AreEqual(10, frame.Score);
             Assert.IsTrue(frame.IsStrike);
             Assert.IsFalse(frame.IsSpare);
             Assert.IsNull(frame.SecondBall);

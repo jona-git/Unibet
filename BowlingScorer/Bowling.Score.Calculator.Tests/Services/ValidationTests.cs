@@ -2,28 +2,28 @@
 using Bowling.Score.Calculator.Validation;
 using NUnit.Framework;
 
-namespace Bowling.Score.Calculator.Tests
+namespace Bowling.Score.Calculator.Tests.Services
 {
     [TestFixture]
     public class ValidationTests
-    {        
+    {
         private readonly IGameValidator gameValidator;
         public ValidationTests()
         {
             gameValidator = new GameValidator();
         }
-        
+
         [Test]
         public void ValidGameScore()
         {
-            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameWholeScoreOngoingGame.TestScores));            
+            Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameWholeScoreOngoingGame.TestScores));
         }
 
         [Test]
         public void ValidAndCompleteGameScore()
         {
             Assert.DoesNotThrow(() => gameValidator.ValidateScores(ScoreTestHelper.ValidOpenFrameScoresGameComplete.TestScores));
-          
+
         }
 
         [Test]

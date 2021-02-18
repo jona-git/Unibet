@@ -1,5 +1,6 @@
 using Bowling.Score.Calculator.Infrastructure.Filters;
 using Bowling.Score.Calculator.Services;
+using Bowling.Score.Calculator.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,7 @@ namespace Bowling.Score.Calculator
                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
            });
 
+            services.AddScoped<IGameValidator, GameValidator>();
             services.AddScoped<IScoreCalculator, ScoreCalculator>();
         }
 

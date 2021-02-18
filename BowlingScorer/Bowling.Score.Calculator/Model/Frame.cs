@@ -23,7 +23,8 @@ namespace Bowling.Score.Calculator.Model
             get 
             { 
                 return FirstBall.HasValue && SecondBall.HasValue ?
-                        FirstBall.Value + SecondBall.Value : 0;
+                        (FirstBall.Value + SecondBall.Value) : 
+                        (IsStrike? FirstBall.Value: 0);
             }  
         }
         public bool IsStrike { get { return FirstBall.HasValue && FirstBall.Value == 10; }  }
